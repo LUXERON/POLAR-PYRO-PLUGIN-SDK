@@ -1,0 +1,23 @@
+{
+  "schema_version": "polar.plugin/v1",
+  "id": "dev.luxeron.polar.chat",
+  "version": "0.1.0",
+  "name": "Polar Chat",
+  "kind": "ui",
+  "publisher": "LUXERON",
+  "license": "MIT",
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-CHAT", "commit": "0000000"},
+  "transport": {"kind": "iframe", "endpoint": "/plugins/chat/index.html"},
+  "capabilities": [
+    {
+      "id": "chat.submit_intent",
+      "effect": "observe",
+      "input_schema": {"type": "object", "additionalProperties": false, "required": ["text"], "properties": {"text": {"type": "string", "minLength": 1, "maxLength": 32000}}},
+      "output_schema": {"type": "object", "required": ["intent_id", "status"], "properties": {"intent_id": {"type": "string"}, "status": {"enum": ["compiled", "abstained"]}}},
+      "evidence_classes": ["intent.receipt"]
+    }
+  ],
+  "contributions": [{"slot": "session.tab", "label": "Chat", "entry": "/plugins/chat"}],
+  "compatibility": {"host_api": ">=1.0 <2.0"}
+}
+

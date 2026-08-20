@@ -1,0 +1,31 @@
+{
+  "schema_version": "polar.plugin/v1",
+  "id": "dev.luxeron.polar.changes",
+  "version": "0.1.0",
+  "name": "Polar Changes",
+  "kind": "composite",
+  "publisher": "LUXERON",
+  "license": "MIT",
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-CHANGES", "commit": "0000000"},
+  "transport": {"kind": "http", "endpoint": "http://127.0.0.1:8791/api/polar-pyro"},
+  "capabilities": [
+    {
+      "id": "changes.inspect_diff",
+      "effect": "observe",
+      "input_schema": {"type": "object", "additionalProperties": false, "required": ["project_id", "base_commit"], "properties": {"project_id": {"type": "string"}, "base_commit": {"type": "string"}}},
+      "output_schema": {"type": "object", "required": ["files"], "properties": {"files": {"type": "array", "items": {"type": "object"}}}},
+      "evidence_classes": ["git.diff"]
+    },
+    {
+      "id": "changes.promote_candidate",
+      "effect": "workspace_write",
+      "required_grants": ["git.promote"],
+      "input_schema": {"type": "object", "additionalProperties": false, "required": ["candidate_commit", "certificate_id"], "properties": {"candidate_commit": {"type": "string"}, "certificate_id": {"type": "string"}}},
+      "output_schema": {"type": "object", "required": ["promoted_commit"], "properties": {"promoted_commit": {"type": "string"}}},
+      "evidence_classes": ["oracle.certificate", "git.commit"]
+    }
+  ],
+  "contributions": [{"slot": "session.tab", "label": "Changes", "entry": "/plugins/changes"}],
+  "compatibility": {"host_api": ">=1.0 <2.0"}
+}
+

@@ -1,0 +1,27 @@
+{
+  "schema_version": "polar.catalog/v1",
+  "publisher": "LUXERON",
+  "categories": {
+    "core_surfaces": ["dev.luxeron.polar.chat", "dev.luxeron.polar.browser", "dev.luxeron.polar.changes"],
+    "internet": ["dev.luxeron.adapter.obscura", "dev.luxeron.adapter.chrome-devtools", "dev.luxeron.adapter.wigolo", "dev.luxeron.adapter.agent-reach", "dev.luxeron.engine.sovereign-retrieval-oracle"],
+    "compatibility": ["dev.luxeron.bridge.opencodex"],
+    "development_domains": [
+      "dev.luxeron.engine.web-experience", "dev.luxeron.engine.android", "dev.luxeron.engine.ios",
+      "dev.luxeron.engine.wear-os", "dev.luxeron.engine.watch-os", "dev.luxeron.engine.threejs-cad",
+      "dev.luxeron.engine.reference-perception", "dev.luxeron.engine.euclid-omega"
+    ],
+    "software_forge": [
+      "dev.luxeron.engine.demiurge", "dev.luxeron.engine.loom", "dev.luxeron.engine.stateful-app",
+      "dev.luxeron.engine.polymath", "dev.luxeron.engine.kintsugi", "dev.luxeron.engine.graft",
+      "dev.luxeron.engine.crucible", "dev.luxeron.engine.ariadne", "dev.luxeron.engine.orrery"
+    ],
+    "memory": ["dev.luxeron.memory.toam", "dev.luxeron.memory.holographic"]
+  },
+  "policy": {
+    "unlisted_plugins": "deny",
+    "manifest_digest_required": true,
+    "mutation_requires_git_transaction": true,
+    "pass_requires_evidence": true,
+    "inference_never_authorizes_effects": true
+  }
+}

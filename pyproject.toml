@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "polar-pyro-plugin-sdk"
+version = "0.1.0"
+description = "Language-neutral contracts and a zero-dependency Python reference host for governed Polar Pyro plugins."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "LUXERON" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+polar-plugin-conformance = "polar_pyro_plugin_sdk.conformance:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/polar_pyro_plugin_sdk"]
+

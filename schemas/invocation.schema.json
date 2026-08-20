@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/polar-pyro/schemas/invocation-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "session_id", "project_id", "plugin_id", "plugin_version", "manifest_digest", "capability_id", "idempotency_key", "args", "grant_ids"],
+  "properties": {
+    "schema_version": {"const": "polar.invocation/v1"},
+    "request_id": {"type": "string"}, "session_id": {"type": "string"}, "project_id": {"type": "string"},
+    "plugin_id": {"type": "string"}, "plugin_version": {"type": "string"},
+    "manifest_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "capability_id": {"type": "string"},
+    "idempotency_key": {"type": "string"}, "args": {"type": "object"}, "grant_ids": {"type": "array", "items": {"type": "string"}},
+    "base_commit": {"type": ["string", "null"]}, "deadline": {"type": ["string", "null"]}, "budget": {"type": "object"}
+  }
+}
+

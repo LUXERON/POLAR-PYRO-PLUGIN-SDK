@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/polar-pyro/schemas/receipt-v1.json",
+  "type": "object",
+  "required": ["schema_version", "request_id", "plugin_id", "capability_id", "status", "manifest_digest", "args_digest", "evidence", "started_at", "finished_at"],
+  "properties": {
+    "schema_version": {"const": "polar.receipt/v1"}, "request_id": {"type": "string"}, "plugin_id": {"type": "string"},
+    "capability_id": {"type": "string"}, "status": {"enum": ["PASS", "FAIL", "NO_RESULT"]},
+    "manifest_digest": {"type": "string"}, "args_digest": {"type": "string"}, "output": {"type": ["object", "null"]},
+    "evidence": {"type": "array", "items": {"type": "object"}}, "started_at": {"type": "string"}, "finished_at": {"type": "string"},
+    "error": {"type": ["object", "null"]}, "git": {"type": ["object", "null"]}, "upstream": {"type": ["object", "null"]}
+  }
+}
+

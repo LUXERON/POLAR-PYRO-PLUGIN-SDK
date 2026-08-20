@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luxeron.dev/polar-pyro/schemas/grant-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "plugin_id", "capability_id", "project_id", "effects", "scopes", "issued_at", "expires_at", "issuer"],
+  "properties": {
+    "id": {"type": "string"}, "plugin_id": {"type": "string"}, "capability_id": {"type": "string"}, "project_id": {"type": "string"},
+    "effects": {"type": "array", "items": {"enum": ["observe", "workspace_write", "external_write", "credential", "value_transfer"]}},
+    "scopes": {"type": "array", "items": {"type": "string"}}, "issued_at": {"type": "string"}, "expires_at": {"type": "string"}, "issuer": {"type": "string"}
+  }
+}
