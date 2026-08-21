@@ -14,6 +14,7 @@ from .models import (
 from .registry import PluginRegistry
 from .package_store import InstallReceipt, PackageStore, package_tree_digest
 from .supervisor import ProcessSupervisor, SupervisorReceipt, SupervisorState, sanitized_environment
+from .signed_catalog import CatalogEntry, VerifiedCatalog, verify_catalog_envelope
 
 __all__ = [
     "Broker",
@@ -35,4 +36,7 @@ __all__ = [
     "SupervisorReceipt",
     "SupervisorState",
     "sanitized_environment",
+    "CatalogEntry",
+    "VerifiedCatalog",
+    "verify_catalog_envelope",
 ]

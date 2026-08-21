@@ -12,7 +12,7 @@ Add manifest discovery from a signed local catalog; qualification cache; install
 
 Exit: a fixture plugin can be installed, activated, crash-recovered, upgraded, rolled back, and removed without restarting or corrupting the host.
 
-Current status: content-addressed install, atomic activation, upgrade, rollback, active-removal denial, recoverable inactive removal, symlink/junction rejection, minimal-environment process start, typed liveness reconciliation, bounded crash restart, and idempotent drain are implemented and covered by the reference suite. Protocol health probes, signed-catalog verification, package fetch/quarantine, resource/log quotas, and TOAM lifecycle journaling remain open gates.
+Current status: content-addressed install, atomic activation, upgrade, rollback, active-removal denial, recoverable inactive removal, symlink/junction rejection, minimal-environment process start, typed liveness reconciliation, bounded crash restart, idempotent drain, and Ed25519 signed-catalog verification are implemented and covered by the reference suite. Protocol health probes, release-key operations, package fetch/quarantine, resource/log quotas, and TOAM lifecycle journaling remain open gates.
 
 ## Phase 2 — Extract core surfaces
 

@@ -53,6 +53,8 @@ The reference `PackageStore` implements the durable half of that lifecycle. It a
 
 The reference `ProcessSupervisor` covers the process half without a hidden daemon thread: it uses the frozen shell-free command vector, builds a minimal allowlisted environment, reports typed generations and exit codes, performs bounded crash recovery, and drains idempotently. Process liveness is not treated as capability correctness; the MCP handshake and conformance suite remain separate gates.
 
+Catalog substitution is now independently closed by `polar.catalog-envelope/v1`: the optional `signatures` extra verifies a canonical payload with Ed25519 against a host trust store, enforces a current issuance/expiry window, rejects duplicate identities and insecure artifact URIs, and binds each `(plugin ID, version)` to both its manifest digest and complete package-tree digest. The private release key never enters the runtime or repository.
+
 ## Invocation path
 
 ```text
