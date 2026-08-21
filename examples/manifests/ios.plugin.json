@@ -1,0 +1,22 @@
+{
+  "schema_version": "polar.plugin/v1",
+  "id": "dev.luxeron.engine.ios",
+  "version": "0.1.0",
+  "name": "Polar Pyro iOS Target",
+  "kind": "engine",
+  "publisher": "LUXERON",
+  "license": "MIT",
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-IOS-PLUGIN", "commit": "1e2b20722bb5404d1c73de671321487ec4437df4", "upstream": "FINAL_IOS_EXPERIENCE_ENGINE_ARCHITECTURE.md"},
+  "transport": {"kind": "native", "command": ["polar-ios-plan"]},
+  "capabilities": [{
+    "id": "ios.compile_build_plan",
+    "effect": "observe",
+    "input_schema": {"type": "object", "additionalProperties": false, "required": ["application", "operations", "binding", "apple_catalog", "target_profile"]},
+    "output_schema": {"type": "object", "required": ["application_id", "target", "modules", "operations", "euclid_obligations", "release_gates"]},
+    "required_grants": [],
+    "evidence_classes": ["ios.closed_build_plan", "ios.authority_partition"],
+    "timeout_ms": 30000
+  }],
+  "contributions": [{"slot": "target.compiler", "label": "iOS", "entry": "ios.compile_build_plan"}],
+  "compatibility": {"host_api": ">=1.0 <2.0", "web_parent": "dev.luxeron.engine.web-experience", "release_gate": "euclid+rust+swift+xcode+privacy+simulator+device+mutation+signing+testflight"}
+}
