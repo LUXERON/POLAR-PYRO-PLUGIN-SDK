@@ -6,7 +6,7 @@
   "kind": "bridge",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-OPENCODEX-BRIDGE", "commit": "0000000", "upstream": "lidge-jun/opencodex@5840591322117f3ee9568b35b135a6d4339f7711"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-OPENCODEX-BRIDGE", "commit": "9f9bc93fbc35773414696b6cc74cc9707b3fcd74", "upstream": "lidge-jun/opencodex@5840591322117f3ee9568b35b135a6d4339f7711"},
   "transport": {"kind": "http", "endpoint": "http://127.0.0.1:10100"},
   "capabilities": [
     {
@@ -20,4 +20,3 @@
   "contributions": [{"slot": "settings.integration", "label": "Codex / Claude compatibility", "entry": "/plugins/opencodex/settings"}],
   "compatibility": {"host_api": ">=1.0 <2.0", "bind_default": "loopback", "enable_default": false}
 }
-

@@ -6,7 +6,7 @@
   "kind": "bridge",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-AGENT-REACH-PLUGIN", "commit": "0000000", "upstream": "Panniantong/Agent-Reach@93ae1d18c37b707dec053c7c4f9d91cd8ef8943d"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-AGENT-REACH-PLUGIN", "commit": "2f74d0f8dcb3fd073d693aae6d04578266dbc607", "upstream": "Panniantong/Agent-Reach@93ae1d18c37b707dec053c7c4f9d91cd8ef8943d"},
   "transport": {"kind": "mcp_stdio", "command": ["agent-reach", "mcp"]},
   "capabilities": [
     {
@@ -20,4 +20,3 @@
   "contributions": [],
   "compatibility": {"host_api": ">=1.0 <2.0", "personal_profile_default": "deny", "install_tools_default": "deny"}
 }
-

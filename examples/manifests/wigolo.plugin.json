@@ -6,7 +6,7 @@
   "kind": "bridge",
   "publisher": "LUXERON",
   "license": "AGPL-3.0-only (external-process boundary)",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-WIGOLO-PLUGIN", "commit": "0000000", "upstream": "KnockOutEZ/wigolo@c6ad4479da7706945b479786df0121e3cce1ece6"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-WIGOLO-PLUGIN", "commit": "50e9f68036aac6b77c7d0e2066968bfe3b5f5110", "upstream": "KnockOutEZ/wigolo@c6ad4479da7706945b479786df0121e3cce1ece6"},
   "transport": {"kind": "mcp_stdio", "command": ["wigolo"]},
   "capabilities": [
     {
@@ -20,4 +20,3 @@
   "contributions": [],
   "compatibility": {"host_api": ">=1.0 <2.0", "distribution": "separate-service"}
 }
-
