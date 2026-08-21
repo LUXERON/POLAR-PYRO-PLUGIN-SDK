@@ -12,6 +12,7 @@ class CatalogTests(unittest.TestCase):
         engines = value["engines"]
         ids = [item["plugin_id"] for item in engines]
         self.assertEqual(len(ids), len(set(ids)))
+        self.assertIn("dev.luxeron.engine.prose-orchestrator", ids)
         self.assertTrue(all(item["status"] in {"source_pinned", "architecture_only", "planned"} for item in engines))
 
     def test_source_pinned_engines_have_exact_commits(self):
