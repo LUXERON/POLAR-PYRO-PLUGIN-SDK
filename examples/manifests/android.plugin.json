@@ -1,0 +1,26 @@
+{
+  "schema_version": "polar.plugin/v1",
+  "id": "dev.luxeron.engine.android",
+  "version": "0.1.0",
+  "name": "Polar Pyro Android Target",
+  "kind": "engine",
+  "publisher": "LUXERON",
+  "license": "MIT",
+  "source": {
+    "repository": "https://github.com/LUXERON/POLAR-PYRO-ANDROID-PLUGIN",
+    "commit": "e6d0e4dbfa51310ad86cd0c135970d6a6c92fdbc",
+    "upstream": "FINAL_ANDROID_EXPERIENCE_ENGINE_ARCHITECTURE.md"
+  },
+  "transport": {"kind": "native", "command": ["polar-android-plan"]},
+  "capabilities": [{
+    "id": "android.compile_build_plan",
+    "effect": "observe",
+    "input_schema": {"type": "object", "additionalProperties": false, "required": ["application", "operations", "binding", "device_catalog", "target_profile"]},
+    "output_schema": {"type": "object", "required": ["application_id", "target", "modules", "operations", "euclid_obligations", "release_gates"]},
+    "required_grants": [],
+    "evidence_classes": ["android.closed_build_plan", "android.authority_partition"],
+    "timeout_ms": 30000
+  }],
+  "contributions": [{"slot": "target.compiler", "label": "Android", "entry": "android.compile_build_plan"}],
+  "compatibility": {"host_api": ">=1.0 <2.0", "web_parent": "dev.luxeron.engine.web-experience", "release_gate": "euclid+rust+kotlin+tauri+gradle+device+accessibility+security+mutation+signing"}
+}
