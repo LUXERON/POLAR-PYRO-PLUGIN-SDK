@@ -8,7 +8,7 @@
   "license": "MIT",
   "source": {
     "repository": "https://github.com/LUXERON/POLAR-PYRO-WEB-EXPERIENCE-PLUGIN",
-    "commit": "b8ee1ccbde972142ca0af319bff659442e8cf2fa",
+    "commit": "3178a4f657193adfd483bc5080cade44dda33ede",
     "upstream": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS@8a24a2b"
   },
   "transport": {"kind": "native", "command": ["polar-web-experience"]},

@@ -6,7 +6,7 @@
   "kind": "bridge",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-AGENT-REACH-PLUGIN", "commit": "3771a2c86b0fea6f387a2b6ce3af3edcbf1260a0", "upstream": "Panniantong/Agent-Reach@93ae1d18c37b707dec053c7c4f9d91cd8ef8943d"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-AGENT-REACH-PLUGIN", "commit": "aa01ddb2b9a47113962722da055a433a853d48d9", "upstream": "Panniantong/Agent-Reach@93ae1d18c37b707dec053c7c4f9d91cd8ef8943d"},
   "transport": {"kind": "native"},
   "capabilities": [
     {

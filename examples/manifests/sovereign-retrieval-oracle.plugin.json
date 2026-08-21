@@ -1,12 +1,12 @@
 {
   "schema_version": "polar.plugin/v1",
   "id": "dev.luxeron.engine.sovereign-retrieval-oracle",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "name": "Sovereign Retrieval Oracle",
   "kind": "service",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/SOVEREIGN-RETRIEVAL-ORACLE", "commit": "8719cb18828cefdbf3b990a2cda919a45de4b8e7"},
+  "source": {"repository": "https://github.com/LUXERON/SOVEREIGN-RETRIEVAL-ORACLE", "commit": "e10ff9dac6f615ba2687798ffcd4b2b1b3288c82"},
   "transport": {"kind": "http", "endpoint": "http://127.0.0.1:8766"},
   "capabilities": [
     {
@@ -18,13 +18,13 @@
     },
     {
       "id": "retrieval.certify_and_promote",
-      "effect": "workspace_write",
-      "required_grants": ["memory.promote_certified"],
+      "effect": "external_write",
+      "required_grants": ["memory.certified.promote"],
       "input_schema": {"type": "object", "required": ["namespace", "answer", "claims", "citations"], "properties": {"namespace": {"type": "string"}, "answer": {"type": "string"}, "claims": {"type": "array", "items": {"type": "string"}}, "citations": {"type": "array", "items": {"type": "object"}}}},
       "output_schema": {"type": "object", "required": ["verdict", "promotion"], "properties": {"verdict": {"enum": ["PASS"]}, "promotion": {"type": "object"}}},
       "evidence_classes": ["grounding.certificate", "toam.record"]
     }
   ],
-  "contributions": [],
+  "contributions": [{"slot": "inspector.overlay", "label": "Retrieval evidence", "entry": "ui/index.html"}],
   "compatibility": {"host_api": ">=1.0 <2.0", "raw_memory": "transient", "promotion": "oracle_only"}
 }

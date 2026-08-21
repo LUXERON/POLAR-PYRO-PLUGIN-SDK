@@ -6,7 +6,7 @@
   "kind": "bridge",
   "publisher": "LUXERON",
   "license": "Apache-2.0",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-OBSCURA-PLUGIN", "commit": "9d344926b47026f70758fc9d17219fe00fa99b33", "upstream": "h4ckf0r0day/obscura@5465ff76abde560c7e9d69b1ca85895562de38e4"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-OBSCURA-PLUGIN", "commit": "8eaf0bd782b2a7543b5590a488fadb0983281d4e", "upstream": "h4ckf0r0day/obscura@5465ff76abde560c7e9d69b1ca85895562de38e4"},
   "transport": {"kind": "mcp_stdio", "command": ["obscura", "mcp"]},
   "capabilities": [
     {

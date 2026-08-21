@@ -6,7 +6,7 @@
   "kind": "engine",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-IOS-PLUGIN", "commit": "1e2b20722bb5404d1c73de671321487ec4437df4", "upstream": "FINAL_IOS_EXPERIENCE_ENGINE_ARCHITECTURE.md"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-IOS-PLUGIN", "commit": "f82b3c95a5695b4e2d638e453865c169514702e7", "upstream": "FINAL_IOS_EXPERIENCE_ENGINE_ARCHITECTURE.md"},
   "transport": {"kind": "native", "command": ["polar-ios-plan"]},
   "capabilities": [{
     "id": "ios.compile_build_plan",

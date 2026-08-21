@@ -8,7 +8,7 @@
   "license": "MIT",
   "source": {
     "repository": "https://github.com/LUXERON/POLAR-PYRO-ANDROID-PLUGIN",
-    "commit": "e6d0e4dbfa51310ad86cd0c135970d6a6c92fdbc",
+    "commit": "73a9bd5a14821b88945da7bf7cd2bc80ddbd4707",
     "upstream": "FINAL_ANDROID_EXPERIENCE_ENGINE_ARCHITECTURE.md"
   },
   "transport": {"kind": "native", "command": ["polar-android-plan"]},
