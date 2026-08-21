@@ -130,6 +130,12 @@ The bridge translates request/stream formats only. It does not turn provider tex
 
 The official catalog reserves capability families for DEMIURGE, LOOM, Stateful App Engine, Euclid Omega, Three.js/CAD, Reference Perception, Web Experience, Android, iOS, Wear OS, watchOS, Polymath, Kintsugi, Graft, Crucible, Ariadne, Orrery, TOAM, and Holographic Memory.
 
+[`catalog/domain-engines.json`](catalog/domain-engines.json) makes the distinction
+between exact source-pinned engines and architecture-only/planned engines machine
+readable. A planned ID is discoverable for design work but is not installable or
+routeable until it has a repository, exact commit, manifest, adapter and passing
+conformance suite.
+
 Their roles remain precise:
 
 - Qwen compiles bounded intent/specifications.
@@ -189,4 +195,3 @@ See [WHITEPAPER.md](WHITEPAPER.md) and [docs/PHASED_IMPLEMENTATION_PLAN.md](docs
 ## Status
 
 Version 0.1 establishes and tests the contract kernel. The example manifests for not-yet-extracted repositories use the sentinel commit `0000000`; that deliberately prevents them from being production-qualified. A plugin becomes installable only after its repository exists, the manifest is updated to an exact reachable commit, and the full qualification suite passes.
-
