@@ -30,6 +30,7 @@ Evaluated 2026-08-21 at exact audit commits.
 
 - Upstream: `Panniantong/Agent-Reach@93ae1d18c37b707dec053c7c4f9d91cd8ef8943d`
 - License: MIT.
+- Runtime correction: Agent Reach is not itself an MCP server. Its executable exposes setup, install, configure, doctor, uninstall, skill, format, transcribe, update and watch commands. Polar Pyro uses its public-channel knowledge as a host-native route compiler; every downstream CLI or MCP backend remains independently registered and qualified.
 - Adopt: channel interface, URL capability detection, ordered backend candidates, live probes, diagnostics and dry-run concepts.
 - Harden: deny installations and personal-session access to model-driven calls; explicit grants for profiles/cookies; normalize all results to evidence atoms.
 - Position: public channel/router plugin for social, video, RSS, and platform-specific retrieval.
@@ -38,4 +39,3 @@ Evaluated 2026-08-21 at exact audit commits.
 
 - Adopt as the live Chromium inspection/performance adapter already used by the Polar Pyro development setup.
 - Keep separate from Obscura: one is optimized for inspecting a real debug target, the other can execute lightweight headless work.
-

@@ -190,7 +190,7 @@ A plugin is not production-ready until:
 - license/SBOM/model-weight obligations are recorded;
 - latency, resource, and 5G gateway budgets pass on target hardware.
 
-See [WHITEPAPER.md](WHITEPAPER.md) and [docs/PHASED_IMPLEMENTATION_PLAN.md](docs/PHASED_IMPLEMENTATION_PLAN.md).
+See [WHITEPAPER.md](WHITEPAPER.md), [docs/PHASED_IMPLEMENTATION_PLAN.md](docs/PHASED_IMPLEMENTATION_PLAN.md), and the dated [live adapter qualification](docs/LIVE_ADAPTER_QUALIFICATION_2026-08-21.md).
 
 ## Status
 
