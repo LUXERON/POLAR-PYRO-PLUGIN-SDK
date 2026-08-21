@@ -12,6 +12,8 @@ from .models import (
     ReceiptStatus,
 )
 from .registry import PluginRegistry
+from .package_store import InstallReceipt, PackageStore, package_tree_digest
+from .supervisor import ProcessSupervisor, SupervisorReceipt, SupervisorState, sanitized_environment
 
 __all__ = [
     "Broker",
@@ -26,5 +28,11 @@ __all__ = [
     "PluginState",
     "Receipt",
     "ReceiptStatus",
+    "InstallReceipt",
+    "PackageStore",
+    "package_tree_digest",
+    "ProcessSupervisor",
+    "SupervisorReceipt",
+    "SupervisorState",
+    "sanitized_environment",
 ]
-

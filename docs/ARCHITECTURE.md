@@ -22,7 +22,11 @@ TOAM stores typed intent, invocation, evidence receipt, residual, certificate, a
 - `mcp_http`: loopback by default; authenticated endpoint, TLS and tenant binding when remote.
 - `http`: same network policy plus OpenAPI/JSON schema conformance.
 - `native`: isolated process boundary preferred; FFI only after ABI and memory-safety review.
-- `iframe`: sandbox flags, CSP, origin pinning, no same-origin privilege by default.
+- `iframe`: a separately hosted origin, `allow-scripts allow-same-origin`, no forms/popups/downloads, no referrer, exact source/origin and request/project/session binding. Same-host-origin plugin URLs are rejected because scripts plus same-origin privilege would permit sandbox escape.
+
+## ADR-008 — Installation is content-addressed and reversible
+
+The host never installs directly from a mutable checkout or network response. A fetcher expands into a quarantined staging area; independent qualification binds the canonical manifest digest, complete regular-file tree digest, and suite digest; only then may the package store copy and atomically admit it. Activation swaps a small state receipt, not package contents. Prior immutable versions remain rollback targets, and removal is a recoverable move. Publisher signatures, SBOMs, vulnerability scans, and licenses are verified before the package-store boundary.
 
 ## ADR-006 — Browser capability is a family
 
@@ -31,4 +35,3 @@ The Browser UI does not hard-code Chromium. It resolves `browser.navigate`, `bro
 ## ADR-007 — Remote delivery preserves local semantics
 
 The 5G/MEC deployment adds transport identity and quotas; it does not relax manifest, grant, receipt, evidence, or oracle checks.
-

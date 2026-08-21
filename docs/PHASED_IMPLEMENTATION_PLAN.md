@@ -12,6 +12,8 @@ Add manifest discovery from a signed local catalog; qualification cache; install
 
 Exit: a fixture plugin can be installed, activated, crash-recovered, upgraded, rolled back, and removed without restarting or corrupting the host.
 
+Current status: content-addressed install, atomic activation, upgrade, rollback, active-removal denial, recoverable inactive removal, symlink/junction rejection, minimal-environment process start, typed liveness reconciliation, bounded crash restart, and idempotent drain are implemented and covered by the reference suite. Protocol health probes, signed-catalog verification, package fetch/quarantine, resource/log quotas, and TOAM lifecycle journaling remain open gates.
+
 ## Phase 2 — Extract core surfaces
 
 Create independent Chat, Browser, and Changes repositories. Replace direct Polar Pyro store/component imports with contribution slots and the host RPC SDK. Preserve the existing user experience: project/session rail, embedded browser, code-overlay diff review, and fail-closed promotion.
@@ -73,4 +75,3 @@ REPEAT until the phase exits or a genuine authority/external-state blocker exist
 ```
 
 The loop never turns timeouts into success, never reuses a failed candidate unchanged, never promotes before verification, and never broadens authority merely to keep moving.
-

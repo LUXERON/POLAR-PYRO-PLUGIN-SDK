@@ -49,6 +49,10 @@ DISCOVERED → QUALIFIED → INSTALLED → ACTIVE → DRAINING → STOPPED → R
 
 Qualification includes schema validation, source/license verification, dependency and vulnerability review, transport probe, capability conformance, poison tests, and an effect-policy review. Updating a plugin creates a new immutable `(id, version, manifest digest)` tuple and reruns qualification. It never mutates an already-qualified tuple.
 
+The reference `PackageStore` implements the durable half of that lifecycle. It admits only a staged package whose manifest digest, whole-tree digest, and qualification-suite digest match a `PASS` attestation; copies through a private staging directory; installs under a content-addressed path; atomically switches the active receipt; retains prior versions for rollback; rejects removal of the active version; and moves inactive removals to a recoverable trash directory. Network fetching, archive extraction, publisher-signature verification, and SBOM/vulnerability scanning deliberately remain outside this narrow trust boundary; live process execution is supervised separately.
+
+The reference `ProcessSupervisor` covers the process half without a hidden daemon thread: it uses the frozen shell-free command vector, builds a minimal allowlisted environment, reports typed generations and exit codes, performs bounded crash recovery, and drains idempotently. Process liveness is not treated as capability correctness; the MCP handshake and conformance suite remain separate gates.
+
 ## Invocation path
 
 ```text
@@ -169,7 +173,7 @@ No Python dependency installation is required for those checks.
 
 ```text
 schemas/                    Normative language-neutral ABI
-src/polar_pyro_plugin_sdk/  Reference models, registry, broker, MCP and Git boundaries
+src/polar_pyro_plugin_sdk/  Reference models, registry, package store, broker, MCP and Git boundaries
 examples/manifests/         First-party and upstream-adapter examples
 catalog/                    Official capability-family registry
 tests/                      Contract, security, idempotency and Git transaction tests
