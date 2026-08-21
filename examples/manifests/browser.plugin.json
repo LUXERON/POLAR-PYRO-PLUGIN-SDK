@@ -6,7 +6,7 @@
   "kind": "composite",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-BROWSER", "commit": "0000000"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-BROWSER", "commit": "f0ea8ca57d0af9c84d402de0a7b63ab880425c20"},
   "transport": {"kind": "mcp_http", "endpoint": "http://127.0.0.1:8794/mcp"},
   "capabilities": [
     {
@@ -21,4 +21,3 @@
   "contributions": [{"slot": "session.tab", "label": "Browser", "entry": "/plugins/browser"}],
   "compatibility": {"host_api": ">=1.0 <2.0"}
 }
-

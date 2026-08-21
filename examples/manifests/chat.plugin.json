@@ -6,7 +6,7 @@
   "kind": "ui",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-CHAT", "commit": "0000000"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-CHAT", "commit": "82c69abad8b2bd8a7e86e1e703d323b052222724"},
   "transport": {"kind": "iframe", "endpoint": "/plugins/chat/index.html"},
   "capabilities": [
     {
@@ -20,4 +20,3 @@
   "contributions": [{"slot": "session.tab", "label": "Chat", "entry": "/plugins/chat"}],
   "compatibility": {"host_api": ">=1.0 <2.0"}
 }
-

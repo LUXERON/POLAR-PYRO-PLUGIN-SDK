@@ -6,7 +6,7 @@
   "kind": "composite",
   "publisher": "LUXERON",
   "license": "MIT",
-  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-CHANGES", "commit": "0000000"},
+  "source": {"repository": "https://github.com/LUXERON/POLAR-PYRO-CHANGES", "commit": "c785b1326e0fb05f6d179086d336fff8ca9fa64a"},
   "transport": {"kind": "http", "endpoint": "http://127.0.0.1:8791/api/polar-pyro"},
   "capabilities": [
     {
@@ -28,4 +28,3 @@
   "contributions": [{"slot": "session.tab", "label": "Changes", "entry": "/plugins/changes"}],
   "compatibility": {"host_api": ">=1.0 <2.0"}
 }
-
