@@ -114,6 +114,25 @@ class PackageStoreTests(unittest.TestCase):
             with self.assertRaisesRegex(ContractError, "symlinks"):
                 package_tree_digest(source)
 
+    def test_reserved_host_metadata_is_denied(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "source"
+            write_package(source, "1.0.0")
+            (source / ".polar-install-receipt.json").write_text("{}", encoding="utf-8")
+            with self.assertRaisesRegex(ContractError, "reserved host metadata"):
+                package_tree_digest(source)
+
+    def test_activation_rechecks_installed_package_integrity(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            source = base / "source"
+            manifest = write_package(source, "1.0.0")
+            store = PackageStore(base / "store")
+            receipt = store.install(source, attestation(source, manifest))
+            (Path(receipt.package_path) / "index.js").write_text("tampered", encoding="utf-8")
+            with self.assertRaisesRegex(ContractError, "no longer matches"):
+                store.activate(manifest)
+
 
 if __name__ == "__main__":
     unittest.main()

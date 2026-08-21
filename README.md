@@ -49,9 +49,11 @@ DISCOVERED → QUALIFIED → INSTALLED → ACTIVE → DRAINING → STOPPED → R
 
 Qualification includes schema validation, source/license verification, dependency and vulnerability review, transport probe, capability conformance, poison tests, and an effect-policy review. Updating a plugin creates a new immutable `(id, version, manifest digest)` tuple and reruns qualification. It never mutates an already-qualified tuple.
 
-The reference `PackageStore` implements the durable half of that lifecycle. It admits only a staged package whose manifest digest, whole-tree digest, and qualification-suite digest match a `PASS` attestation; copies through a private staging directory; installs under a content-addressed path; atomically switches the active receipt; retains prior versions for rollback; rejects removal of the active version; and moves inactive removals to a recoverable trash directory. Network fetching, archive extraction, publisher-signature verification, and SBOM/vulnerability scanning deliberately remain outside this narrow trust boundary; live process execution is supervised separately.
+The reference `PackageStore` implements the durable half of that lifecycle. It admits only a staged package whose manifest digest, whole-tree digest, and qualification-suite digest match a `PASS` attestation; copies through a private staging directory; installs under a content-addressed path; atomically switches the active receipt; retains prior versions for rollback; rejects removal of the active version; and moves inactive removals to a recoverable trash directory. Every activation re-hashes the installed payload, so a once-valid receipt cannot conceal post-install modification. Network fetching, archive extraction, publisher-signature verification and SBOM/vulnerability scanning deliberately remain outside this narrow trust boundary; live process execution is supervised separately.
 
 The reference `ProcessSupervisor` covers the process half without a hidden daemon thread: it uses the frozen shell-free command vector, builds a minimal allowlisted environment, reports typed generations and exit codes, performs bounded crash recovery, and drains idempotently. Process liveness is not treated as capability correctness; the MCP handshake and conformance suite remain separate gates.
+
+`PluginRuntime` composes those primitives at the host boundary. Installation, activation, upgrade, rollback and removal enter an append-only `LifecycleJournal`; each record binds the prior record hash and is verified during recovery. Activation and rollback require a fresh plugin-specific health probe that returns `PASS` with non-empty evidence. Missing probes, empty evidence and tampered packages remain inactive. The journal is locally durable and can be projected into TOAM without making TOAM the package source of truth.
 
 Catalog substitution is now independently closed by `polar.catalog-envelope/v1`: the optional `signatures` extra verifies a canonical payload with Ed25519 against a host trust store, enforces a current issuance/expiry window, rejects duplicate identities and insecure artifact URIs, and binds each `(plugin ID, version)` to both its manifest digest and complete package-tree digest. The private release key never enters the runtime or repository.
 
@@ -175,7 +177,7 @@ No Python dependency installation is required for those checks.
 
 ```text
 schemas/                    Normative language-neutral ABI
-src/polar_pyro_plugin_sdk/  Reference models, registry, package store, broker, MCP and Git boundaries
+src/polar_pyro_plugin_sdk/  Reference models, registry, package runtime, broker, MCP and Git boundaries
 examples/manifests/         First-party and upstream-adapter examples
 catalog/                    Official capability-family registry
 tests/                      Contract, security, idempotency and Git transaction tests
@@ -200,4 +202,4 @@ See [WHITEPAPER.md](WHITEPAPER.md), [docs/PHASED_IMPLEMENTATION_PLAN.md](docs/PH
 
 ## Status
 
-Version 0.1 establishes and tests the contract kernel. The example manifests for not-yet-extracted repositories use the sentinel commit `0000000`; that deliberately prevents them from being production-qualified. A plugin becomes installable only after its repository exists, the manifest is updated to an exact reachable commit, and the full qualification suite passes.
+Version 0.2 establishes and tests the contract kernel plus a journaled host lifecycle. The example manifests for not-yet-extracted repositories use the sentinel commit `0000000`; that deliberately prevents them from being production-qualified. A plugin becomes installable only after its repository exists, the manifest is updated to an exact reachable commit, and the full qualification suite passes.

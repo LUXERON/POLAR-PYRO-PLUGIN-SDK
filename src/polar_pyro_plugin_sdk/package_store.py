@@ -36,7 +36,10 @@ def _atomic_json(path: Path, value: Mapping[str, Any]) -> None:
     os.replace(temporary, path)
 
 
-def package_tree_digest(directory: Path) -> str:
+_RESERVED_PACKAGE_FILES = {".polar-install-receipt.json"}
+
+
+def package_tree_digest(directory: Path, *, installed: bool = False) -> str:
     """Hash regular files by relative POSIX path and byte content.
 
     Symlinks and junctions are rejected so a package cannot smuggle content
@@ -55,6 +58,10 @@ def package_tree_digest(directory: Path) -> str:
         if not path.is_file():
             raise ContractError("package source can contain regular files only")
         relative = path.relative_to(root).as_posix()
+        if relative in _RESERVED_PACKAGE_FILES:
+            if installed:
+                continue
+            raise ContractError(f"package source contains reserved host metadata: {relative}")
         if relative == ".git" or relative.startswith(".git/"):
             raise ContractError("package source cannot contain Git metadata")
         entries.append({"path": relative, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
@@ -143,6 +150,8 @@ class PackageStore:
             stored = json.loads(receipt_path.read_text(encoding="utf-8"))
             if stored.get("package_tree_sha256") != tree_digest or stored.get("manifest_digest") != manifest.digest:
                 raise ContractError("existing package receipt does not match admitted content")
+            if package_tree_digest(target, installed=True) != tree_digest:
+                raise ContractError("installed package content no longer matches its receipt")
             return InstallReceipt(
                 plugin_id=manifest.id,
                 version=manifest.version,
@@ -188,6 +197,8 @@ class PackageStore:
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
         if receipt.get("manifest_digest") != manifest.digest:
             raise ContractError("installed manifest digest mismatch")
+        if package_tree_digest(target, installed=True) != receipt.get("package_tree_sha256"):
+            raise ContractError("installed package content no longer matches its receipt")
 
         state = self._read_state(manifest.id)
         next_active = {"version": manifest.version, "manifest_digest": manifest.digest, "package_path": str(target)}
@@ -223,17 +234,61 @@ class PackageStore:
             self.registry.transition(manifest.id, manifest.version, PluginState.ACTIVE)
         return next_state
 
-    def rollback(self, plugin_id: str) -> dict[str, Any]:
+    def state(self, plugin_id: str) -> dict[str, Any]:
+        """Return a detached copy of the durable activation state."""
+
+        return json.loads(json.dumps(self._read_state(plugin_id)))
+
+    def installed_manifests(self, plugin_id: str | None = None) -> tuple[PluginManifest, ...]:
+        """Enumerate integrity-checked installed manifests in stable order."""
+
+        manifests: list[PluginManifest] = []
+        packages = self.root / "packages"
+        if not packages.exists():
+            return ()
+        for manifest_path in sorted(packages.glob("*/*/*/plugin.manifest.json")):
+            manifest = PluginManifest.from_json(manifest_path.read_text(encoding="utf-8"))
+            if plugin_id is not None and manifest.id != plugin_id:
+                continue
+            target = manifest_path.parent
+            receipt_path = target / ".polar-install-receipt.json"
+            if not receipt_path.is_file():
+                raise ContractError("installed package has no install receipt")
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            if receipt.get("manifest_digest") != manifest.digest:
+                raise ContractError("installed manifest digest mismatch")
+            if package_tree_digest(target, installed=True) != receipt.get("package_tree_sha256"):
+                raise ContractError("installed package content no longer matches its receipt")
+            manifests.append(manifest)
+        return tuple(sorted(manifests, key=lambda item: (item.id, item.version, item.digest)))
+
+    def manifest(self, plugin_id: str, version: str | None = None) -> PluginManifest:
+        """Resolve exactly one installed manifest or fail closed."""
+
+        matches = [
+            item for item in self.installed_manifests(plugin_id)
+            if version is None or item.version == version
+        ]
+        if len(matches) != 1:
+            qualifier = f"@{version}" if version else ""
+            raise ContractError(f"installed plugin {plugin_id}{qualifier} did not resolve uniquely")
+        return matches[0]
+
+    def rollback_manifest(self, plugin_id: str) -> PluginManifest:
         state = self._read_state(plugin_id)
         history = state.get("history", [])
         if not history:
             raise ContractError("no rollback target is available")
-        target = history[0]
-        package_path = Path(str(target.get("package_path", "")))
+        package_path = Path(str(history[0].get("package_path", "")))
         manifest_path = package_path / "plugin.manifest.json"
         if not manifest_path.is_file():
             raise ContractError("rollback target package is unavailable")
-        return self.activate(PluginManifest.from_json(manifest_path.read_text(encoding="utf-8")))
+        manifest = PluginManifest.from_json(manifest_path.read_text(encoding="utf-8"))
+        # Reuse the public integrity-checked resolver before returning authority.
+        return self.manifest(manifest.id, manifest.version)
+
+    def rollback(self, plugin_id: str) -> dict[str, Any]:
+        return self.activate(self.rollback_manifest(plugin_id))
 
     def remove(self, manifest: PluginManifest) -> Path:
         state = self._read_state(manifest.id)
