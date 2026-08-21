@@ -1,0 +1,26 @@
+{
+  "schema_version": "polar.plugin/v1",
+  "id": "dev.luxeron.engine.web-experience",
+  "version": "0.1.0",
+  "name": "Polar Pyro Web Experience Engine",
+  "kind": "engine",
+  "publisher": "LUXERON",
+  "license": "MIT",
+  "source": {
+    "repository": "https://github.com/LUXERON/POLAR-PYRO-WEB-EXPERIENCE-PLUGIN",
+    "commit": "b834fc870d254afa3881474620aa0e2082046922",
+    "upstream": "QWEN3-0.6B-NEUROSYMBOLIC-HARNESS@8a24a2b"
+  },
+  "transport": {"kind": "native", "command": ["polar-web-experience"]},
+  "capabilities": [{
+    "id": "web.compile_experience",
+    "effect": "observe",
+    "input_schema": {"type": "object", "additionalProperties": false, "required": ["capability", "binding", "journeys", "components", "design_language"]},
+    "output_schema": {"type": "object", "required": ["ux_contract", "euclid_obligations", "ui_plan"]},
+    "required_grants": [],
+    "evidence_classes": ["web.closed_compilation", "web.euclid_obligations"],
+    "timeout_ms": 30000
+  }],
+  "contributions": [{"slot": "command.palette", "label": "Compile Web Experience", "entry": "web.compile_experience"}],
+  "compatibility": {"host_api": ">=1.0 <2.0", "release_gate": "browser+accessibility+mutation+oracle"}
+}
