@@ -200,6 +200,10 @@ A plugin is not production-ready until:
 
 See [WHITEPAPER.md](WHITEPAPER.md), [docs/PHASED_IMPLEMENTATION_PLAN.md](docs/PHASED_IMPLEMENTATION_PLAN.md), and the dated [live adapter qualification](docs/LIVE_ADAPTER_QUALIFICATION_2026-08-21.md).
 
+## Platform target qualification
+
+The first five development targets are independently versioned and source-pinned: Web Experience, Android, iOS, Wear OS and Apple Watch. See [Platform Target Qualification](docs/PLATFORM_TARGET_QUALIFICATION.md) for exact commits, replayed evidence and the remaining release boundary.
+
 ## Status
 
 Version 0.2 establishes and tests the contract kernel plus a journaled host lifecycle. The example manifests for not-yet-extracted repositories use the sentinel commit `0000000`; that deliberately prevents them from being production-qualified. A plugin becomes installable only after its repository exists, the manifest is updated to an exact reachable commit, and the full qualification suite passes.
