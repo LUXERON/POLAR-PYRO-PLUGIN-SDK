@@ -75,6 +75,18 @@ class RuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ContractError, "digest"):
                 LifecycleJournal(path)
 
+    def test_projection_outage_does_not_corrupt_or_undo_local_journal(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "lifecycle.jsonl"
+
+            def unavailable(_record) -> None:
+                raise ConnectionError("TOAM unavailable")
+
+            journal = LifecycleJournal(path, sink=unavailable)
+            record = journal.append("plugin.fixture", {"status": "PASS"})
+            self.assertEqual(journal.verify()[-1]["event_sha256"], record["event_sha256"])
+            self.assertEqual(journal.last_projection_error, "ConnectionError")
+
 
 if __name__ == "__main__":
     unittest.main()

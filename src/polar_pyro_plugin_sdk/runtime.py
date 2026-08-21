@@ -37,6 +37,7 @@ class LifecycleJournal:
         self.path = path.resolve()
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.sink = sink
+        self.last_projection_error: str | None = None
         self._lock = threading.Lock()
         records = self.verify()
         self._sequence = len(records)
@@ -87,7 +88,11 @@ class LifecycleJournal:
             self._sequence += 1
             self._head = record["event_sha256"]
         if self.sink is not None:
-            self.sink(dict(record))
+            try:
+                self.sink(dict(record))
+                self.last_projection_error = None
+            except Exception as exc:  # the local chain is the recovery authority
+                self.last_projection_error = type(exc).__name__
         return record
 
 
@@ -195,4 +200,8 @@ class PluginRuntime:
                 for manifest in manifests
             ],
             "journal_head": self.journal.verify()[-1]["event_sha256"] if self.journal.verify() else "0" * 64,
+            "projection": {
+                "status": "PASS" if self.journal.last_projection_error is None else "NO_RESULT",
+                "error_type": self.journal.last_projection_error,
+            },
         }
